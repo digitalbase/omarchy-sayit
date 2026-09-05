@@ -24,6 +24,8 @@ Panel {
     return "Ready to read"
   }
   readonly property color foreground: bar ? bar.foreground : Color.foreground
+  readonly property string fontFamily: bar ? bar.fontFamily : Style.font.family
+  readonly property real rowHoverOverflow: Style.space(6)
   implicitWidth: barButton.implicitWidth
   implicitHeight: barButton.implicitHeight
 
@@ -120,25 +122,27 @@ Panel {
       Keys.onEscapePressed: root.close()
       Keys.onSpacePressed: root.execute(["toggle"])
 
-      Row {
+      PanelHero {
         width: parent.width
-        spacing: Style.space(10)
-        Text {
-          text: "SayIt"
-          width: parent.width - statusText.implicitWidth - parent.spacing
-          color: root.foreground
-          font.family: Style.font.family
-          font.pixelSize: Style.font.title
-          font.bold: true
-        }
-        Text {
-          id: statusText
-          text: root.stateLabel
-          color: root.foreground
-          opacity: 0.65
-          font.family: Style.font.family
-          font.pixelSize: Style.font.bodySmall
-          anchors.verticalCenter: parent.verticalCenter
+        title: "SayIt"
+        meta: root.stateLabel
+        foreground: root.foreground
+        fontFamily: root.fontFamily
+        iconComponent: Component {
+          Item {
+            implicitWidth: Style.font.display
+            implicitHeight: Style.font.display
+            Image {
+              id: headerIcon
+              anchors.fill: parent
+              source: "sayit.svg"
+              sourceSize.width: 96
+              sourceSize.height: 96
+              fillMode: Image.PreserveAspectFit
+              visible: false
+            }
+            ColorOverlay { anchors.fill: headerIcon; source: headerIcon; color: root.foreground }
+          }
         }
       }
       PanelSeparator { foreground: root.foreground }
@@ -148,45 +152,102 @@ Panel {
         visible: text !== ""
         textFormat: Text.PlainText
         color: Color.urgent
-        font.family: Style.font.family
+        font.family: root.fontFamily
         font.pixelSize: Style.font.bodySmall
         wrapMode: Text.Wrap
         maximumLineCount: 3
         elide: Text.ElideRight
       }
       Row {
-        anchors.horizontalCenter: parent.horizontalCenter
-        spacing: Style.space(8)
-        Button { text: "Read clipboard"; iconText: "󰅍"; bordered: true; focusable: true; enabled: root.online; onClicked: root.execute(["clipboard", "--detach"]) }
-        Button { text: "Read selection"; focusable: true; enabled: root.online; onClicked: root.execute(["selection", "--detach"]) }
+        spacing: Style.space(4)
+        Button {
+          text: "Read clipboard"
+          iconText: "󰅍"
+          focusable: true
+          enabled: root.online
+          foreground: root.foreground
+          fontFamily: root.fontFamily
+          fontSize: Style.font.bodySmall
+          horizontalPadding: Style.space(6)
+          onClicked: root.execute(["clipboard", "--detach"])
+        }
+        Button {
+          text: "Read selection"
+          focusable: true
+          enabled: root.online
+          foreground: root.foreground
+          fontFamily: root.fontFamily
+          fontSize: Style.font.bodySmall
+          horizontalPadding: Style.space(6)
+          onClicked: root.execute(["selection", "--detach"])
+        }
+        Button {
+          text: "Config"
+          focusable: true
+          foreground: root.foreground
+          fontFamily: root.fontFamily
+          fontSize: Style.font.bodySmall
+          horizontalPadding: Style.space(6)
+          onClicked: { Quickshell.execDetached(["sayit", "ui"]); root.close() }
+        }
       }
       PanelSeparator { foreground: root.foreground }
-      Text { text: "Recent readings"; color: root.foreground; opacity: 0.65; font.family: Style.font.family; font.pixelSize: Style.font.caption }
-      Repeater {
-        model: root.history
-        Button {
-          required property var modelData
-          width: content.width
-          id: historyButton
-          readonly property bool currentReading: !!root.snapshot.current && root.snapshot.current.id === modelData.id && root.busy
-          iconText: currentReading && root.playing ? "󰏤" : "󰐊"
-          tooltipText: currentReading ? (root.playing ? "Pause reading" : "Resume reading") : "Play reading"
-          leftAlign: true
-          focusable: true
-          fontSize: Style.font.bodySmall
-          onClicked: currentReading ? root.playPause() : root.execute(["replay", modelData.id])
-          Text {
-            anchors.left: parent.left
-            anchors.leftMargin: Style.space(32)
-            anchors.right: parent.right
-            anchors.rightMargin: Style.space(8)
-            anchors.verticalCenter: parent.verticalCenter
-            text: String(historyButton.modelData.text || "").replace(/\s+/g, " ")
-            textFormat: Text.PlainText
-            elide: Text.ElideRight
-            color: root.foreground
-            font.family: Style.font.family
-            font.pixelSize: Style.font.bodySmall
+      Text { text: "Recent readings"; color: root.foreground; opacity: 0.65; font.family: root.fontFamily; font.pixelSize: Style.font.caption }
+      Column {
+        width: parent.width
+        spacing: Style.space(4)
+        Repeater {
+          model: root.history
+          CursorSurface {
+            id: historyRow
+            required property var modelData
+            readonly property bool currentReading: !!root.snapshot.current && root.snapshot.current.id === modelData.id && root.busy
+            // Match Obsidian's todo rows: extend the hover paint outwards,
+            // then inset the contents back onto the panel's content edge.
+            x: -root.rowHoverOverflow
+            width: content.width + root.rowHoverOverflow * 2
+            implicitHeight: Math.max(playIcon.implicitHeight, readingLabel.implicitHeight) + Style.space(8)
+            foreground: root.foreground
+            hasCursor: rowMouse.containsMouse || activeFocus
+            activeFocusOnTab: true
+            function activate() { currentReading ? root.playPause() : root.execute(["replay", modelData.id]) }
+            Keys.onReturnPressed: activate()
+            Keys.onEnterPressed: activate()
+            Keys.onSpacePressed: activate()
+            Accessible.role: Accessible.Button
+            Accessible.name: (currentReading && root.playing ? "Pause: " : "Play: ") + modelData.text
+            MouseArea {
+              id: rowMouse
+              anchors.fill: parent
+              hoverEnabled: true
+              cursorShape: Qt.PointingHandCursor
+              onClicked: historyRow.activate()
+            }
+            Text {
+              id: playIcon
+              anchors.left: parent.left
+              anchors.leftMargin: root.rowHoverOverflow
+              anchors.verticalCenter: parent.verticalCenter
+              width: Style.space(18)
+              text: historyRow.currentReading && root.playing ? "󰏤" : "󰐊"
+              color: root.foreground
+              font.family: root.fontFamily
+              font.pixelSize: Style.font.body
+            }
+            Text {
+              id: readingLabel
+              anchors.left: playIcon.right
+              anchors.leftMargin: Style.space(10)
+              anchors.right: parent.right
+              anchors.rightMargin: root.rowHoverOverflow + Style.space(8)
+              anchors.verticalCenter: parent.verticalCenter
+              text: String(historyRow.modelData.text || "").replace(/\s+/g, " ")
+              textFormat: Text.PlainText
+              elide: Text.ElideRight
+              color: root.foreground
+              font.family: root.fontFamily
+              font.pixelSize: Style.font.body
+            }
           }
         }
       }
@@ -195,15 +256,17 @@ Panel {
         text: "Your readings will appear here."
         color: root.foreground
         opacity: 0.5
-        font.family: Style.font.family
+        font.family: root.fontFamily
         font.pixelSize: Style.font.bodySmall
       }
-      PanelSeparator { foreground: root.foreground }
-      Row {
-        width: parent.width
-        spacing: Style.space(8)
-        Button { text: "Models, voices & history"; focusable: true; onClicked: { Quickshell.execDetached(["sayit", "ui"]); root.close() } }
-        Button { visible: !root.online; text: "Start service"; focusable: true; onClicked: Quickshell.execDetached(["systemctl", "--user", "start", "sayit.service"]) }
+      Button {
+        visible: !root.online
+        text: "Start service"
+        focusable: true
+        foreground: root.foreground
+        fontFamily: root.fontFamily
+        fontSize: Style.font.bodySmall
+        onClicked: Quickshell.execDetached(["systemctl", "--user", "start", "sayit.service"])
       }
     }
   }

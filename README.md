@@ -58,7 +58,7 @@ Install the native Quickshell bar popup with:
 ./scripts/install-bar.sh
 ```
 
-SayIt's original speaking-profile icon sits in the center section of the bar. The compact popup has selection/clipboard reading and play buttons beside four recent readings. A playing reading's button pauses or resumes it. Right-clicking the bar icon also toggles playback. Models, voices and the full player are available through the footer link. The icon comes from upstream SayIt under its MIT license; see the bundled icon notice.
+SayIt's original speaking-profile icon sits in the center section of the bar. The compact popup has selection/clipboard reading and play buttons beside four recent readings. A playing reading's button pauses or resumes it. Right-clicking the bar icon also toggles playback. The left-aligned top actions are Read clipboard, Read selection and Config. Config opens models, voices and the full player. The header uses Omarchy's PanelHero component, and reading rows use the same typography and outward hover margins as Obsidian Daily. The icon comes from upstream SayIt under its MIT license; see the bundled icon notice.
 
 The installer backs up your bar configuration and installs `digitalbase.sayit` under the user plugin directory. No packaged Omarchy files are changed. Disable it with `omarchy plugin disable digitalbase.sayit`.
 
