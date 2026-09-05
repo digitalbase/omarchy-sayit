@@ -4,7 +4,7 @@
   "name": "SayIt",
   "version": "0.1.0",
   "author": "Digitalbase",
-  "description": "Local speech player with playback controls and reading history",
+  "description": "Omarchy SayIt makes your desktop read aloud with a keyboard shortcut.",
   "kinds": [
     "bar-widget"
   ],
@@ -17,5 +17,6 @@
     "category": "Audio",
     "allowMultiple": false,
     "defaultSection": "center"
-  }
+  },
+  "license": "MIT"
 }

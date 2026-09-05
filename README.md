@@ -4,6 +4,8 @@ A native Linux port in progress of [callebtc/sayit](https://github.com/callebtc/
 
 **This is an early working port, not full upstream parity.** Kokoro has been tested with real offline English and Spanish synthesis on Omarchy. Qwen3-TTS, Chatterbox and OmniVoice have Linux adapters that still need model-by-model runtime validation. The catalog retains all 22 upstream entries, including models that have not been ported. See [the parity tracker](docs/parity.md).
 
+![SayIt bar popup with shortcut hints and recent readings](preview.png)
+
 ## What works
 
 - Explicit Wayland selection or clipboard reading, without clipboard monitoring.
@@ -27,7 +29,15 @@ omarchy pkg add python python-gobject gtk3 mpv wl-clipboard ffmpeg
 
 Omarchy normally includes PipeWire's `pw-record` for recording. `libayatana-appindicator` adds the optional tray menu. Voxtype is optional and only needed for automatic reference transcription and dictation integration.
 
-From this checkout:
+Install the bar plugin, then use a separate checkout for the speech service:
+
+```sh
+omarchy plugin add https://github.com/digitalbase/omarchy-sayit --enable
+git clone https://github.com/digitalbase/omarchy-sayit.git
+cd omarchy-sayit
+```
+
+Adding the plugin installs the bar interface only. It does not install Python engines, download model weights or start the speech service. Run the following commands explicitly to set those up. If you already have a source checkout, run them there instead. Keep the engine environments outside the installed plugin directory so Omarchy can validate plugin updates:
 
 ```sh
 ./scripts/bootstrap.sh
@@ -49,6 +59,22 @@ The installer links this checkout into `~/.local/bin`, installs a desktop launch
 | Super+F10 | Open the player |
 
 Some Wayland apps do not publish a primary selection. In those apps, copy the text and click Read clipboard, or assign a clipboard shortcut in Settings. There is no universal Linux equivalent of macOS Accessibility selection retrieval.
+
+## Remove
+
+If you installed the speech service, stop it before removing its checkout:
+
+```sh
+systemctl --user disable --now sayit.service
+rm -f ~/.config/systemd/user/sayit.service
+systemctl --user daemon-reload
+rm -f ~/.local/bin/sayit ~/.local/share/applications/omarchy-sayit.desktop
+omarchy plugin remove digitalbase.sayit
+```
+
+These commands remove SayIt's service and launcher. Remove its managed shortcut block between `-- BEGIN SAYIT SHORTCUTS` and `-- END SAYIT SHORTCUTS` from `~/.config/hypr/bindings.lua`, along with any optional SayIt playback bindings you added, then run `hyprctl reload`.
+
+Downloaded models, saved recordings, voice samples and settings remain in `~/.local/share/sayit` and `~/.config/sayit`. Delete these directories separately if you want to erase that data.
 
 ## Omarchy bar player
 
