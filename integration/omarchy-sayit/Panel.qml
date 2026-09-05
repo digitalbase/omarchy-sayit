@@ -32,6 +32,44 @@ Panel {
   implicitWidth: barButton.implicitWidth
   implicitHeight: barButton.implicitHeight
 
+  component ActionButton: Button {
+    id: control
+    property string label: ""
+    property string shortcut: ""
+    width: (parent.width - parent.spacing * 2) / 3
+    implicitHeight: Style.space(32)
+    bordered: true
+    focusable: true
+    foreground: root.foreground
+    fontFamily: root.fontFamily
+    tooltipText: label + (shortcut ? " · " + shortcut : "")
+    Accessible.name: tooltipText
+    Row {
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.margins: Style.space(8)
+      anchors.verticalCenter: parent.verticalCenter
+      spacing: control.shortcut ? Style.space(6) : 0
+      Text {
+        width: parent.width - shortcutHint.width - parent.spacing
+        text: control.label
+        color: root.foreground
+        font.family: root.fontFamily
+        font.pixelSize: Style.font.bodySmall
+        elide: Text.ElideRight
+      }
+      Text {
+        id: shortcutHint
+        width: control.shortcut ? Math.min(implicitWidth, parent.width * 0.5) : 0
+        text: control.shortcut.replace(/ \+ /g, "+")
+        color: Color.accent
+        font.family: root.fontFamily
+        font.pixelSize: Style.font.bodySmall
+        elide: Text.ElideRight
+      }
+    }
+  }
+
   function execute(args) {
     if (action.running) return
     errorMessage = ""
@@ -122,7 +160,7 @@ Panel {
     bar: root.bar
     open: root.opened
     focusTarget: content
-    contentWidth: fittedContentWidth(Style.space(420))
+    contentWidth: fittedContentWidth(Style.space(480))
     contentHeight: fittedContentHeight(content.implicitHeight, Style.space(720))
 
     Column {
@@ -169,43 +207,24 @@ Panel {
         maximumLineCount: 3
         elide: Text.ElideRight
       }
-      Flow {
+      Row {
+        id: actions
         width: parent.width
         spacing: Style.space(4)
-        Button {
-          text: "Read clipboard" + (root.clipboardShortcut ? " · " + root.clipboardShortcut : "")
-          bordered: true
-          implicitHeight: Style.space(32)
-          iconText: "󰅍"
-          focusable: true
+        ActionButton {
+          label: "Read clipboard"
+          shortcut: root.clipboardShortcut
           enabled: root.online
-          foreground: root.foreground
-          fontFamily: root.fontFamily
-          fontSize: Style.font.bodySmall
-          horizontalPadding: Style.space(6)
           onClicked: root.execute(["clipboard", "--detach"])
         }
-        Button {
-          text: "Read selection" + (root.selectionShortcut ? " · " + root.selectionShortcut : "")
-          bordered: true
-          implicitHeight: Style.space(32)
-          focusable: true
+        ActionButton {
+          label: "Read selection"
+          shortcut: root.selectionShortcut
           enabled: root.online
-          foreground: root.foreground
-          fontFamily: root.fontFamily
-          fontSize: Style.font.bodySmall
-          horizontalPadding: Style.space(6)
           onClicked: root.execute(["selection", "--detach"])
         }
-        Button {
-          text: "Config"
-          bordered: true
-          implicitHeight: Style.space(32)
-          focusable: true
-          foreground: root.foreground
-          fontFamily: root.fontFamily
-          fontSize: Style.font.bodySmall
-          horizontalPadding: Style.space(6)
+        ActionButton {
+          label: "Config"
           onClicked: { Quickshell.execDetached(["sayit", "ui", "--settings"]); root.close() }
         }
       }
@@ -261,6 +280,9 @@ Panel {
               anchors.verticalCenter: parent.verticalCenter
               text: String(historyRow.modelData.text || "").replace(/\s+/g, " ")
               textFormat: Text.PlainText
+              wrapMode: Text.Wrap
+              maximumLineCount: 2
+              lineHeight: 1.2
               elide: Text.ElideRight
               color: root.foreground
               font.family: root.fontFamily

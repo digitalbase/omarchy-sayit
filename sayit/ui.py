@@ -8,10 +8,67 @@ import tempfile
 import threading
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk, GLib, Gdk
 from .catalog import models, installed
 from .paths import data_dir
 from .service import call
+from .shortcuts import normalize
+
+
+class ShortcutInput(Gtk.Box):
+    """Keep manual entry available for combinations intercepted by the desktop."""
+    def __init__(self):
+        super().__init__(spacing=6)
+        self.entry = Gtk.Entry(placeholder_text="Unassigned")
+        self.pack_start(self.entry, True, True, 0)
+        self.capture = Gtk.ToggleButton(label="Record shortcut")
+        self.pack_start(self.capture, False, False, 0)
+        self.capture.connect("toggled", self.toggled)
+        self.capture.connect("key-press-event", self.key_pressed)
+        self.capture.connect("focus-out-event", self.focus_out)
+
+    def get_text(self):
+        return self.entry.get_text()
+
+    def set_text(self, text):
+        self.entry.set_text(text)
+
+    def toggled(self, button):
+        button.set_label("Press combination…" if button.get_active() else "Record shortcut")
+        if button.get_active():
+            button.grab_focus()
+
+    def focus_out(self, *_):
+        self.capture.set_active(False)
+        return False
+
+    def key_pressed(self, button, event):
+        if not button.get_active():
+            return False
+        if event.is_modifier:
+            return True
+        if event.keyval == Gdk.KEY_Escape:
+            button.set_active(False)
+            return True
+        if event.keyval in (Gdk.KEY_Tab, Gdk.KEY_ISO_Left_Tab):
+            button.set_active(False)
+            return False
+        masks = (("SUPER", Gdk.ModifierType.SUPER_MASK | Gdk.ModifierType.MOD4_MASK),
+                 ("CTRL", Gdk.ModifierType.CONTROL_MASK),
+                 ("ALT", Gdk.ModifierType.MOD1_MASK), ("SHIFT", Gdk.ModifierType.SHIFT_MASK))
+        mods = [name for name, mask in masks if event.state & mask]
+        key = Gdk.keyval_name(Gdk.keyval_to_lower(event.keyval)) or ""
+        if not mods and event.keyval in (Gdk.KEY_BackSpace, Gdk.KEY_Delete):
+            value = ""
+        else:
+            try:
+                value = normalize(" + ".join(mods + [key]))
+            except ValueError:
+                button.set_label("Try another key…")
+                return True
+        self.set_text(value)
+        button.set_active(False)
+        return True
 
 
 class Window(Gtk.Window):
@@ -245,10 +302,12 @@ class Window(Gtk.Window):
 
     def settings_page(self, box):
         box.pack_start(Gtk.Label(label="Read selected text shortcut", xalign=0), False, False, 0)
-        self.selection_shortcut = self.entry(box, "F10")
+        self.selection_shortcut = ShortcutInput()
+        box.pack_start(self.selection_shortcut, False, False, 0)
         box.pack_start(Gtk.Label(label="Read clipboard shortcut", xalign=0), False, False, 0)
-        self.clipboard_shortcut = self.entry(box, "Unassigned")
-        box.pack_start(Gtk.Label(label="Use keys such as F10 or CTRL + ALT + R. Leave a field empty to disable it.\nSaving applies the shortcuts to Hyprland; existing shortcuts are checked for conflicts.", wrap=True, xalign=0), False, False, 0)
+        self.clipboard_shortcut = ShortcutInput()
+        box.pack_start(self.clipboard_shortcut, False, False, 0)
+        box.pack_start(Gtk.Label(label="Click Record shortcut, then press a combination. Escape cancels; Backspace clears.\nYou can also type a shortcut such as CTRL + ALT + R, including keys already used by the desktop.\nSaving applies the shortcuts to Hyprland and checks for conflicts.", wrap=True, xalign=0), False, False, 0)
         self.default_model = self.entry(box, "Default model ID")
         self.idle = Gtk.SpinButton.new_with_range(0, 86400, 60)
         self.idle.set_value(600)
@@ -323,4 +382,3 @@ def main(settings=False):
     except (ValueError, ImportError):
         pass
     Gtk.main()
-
