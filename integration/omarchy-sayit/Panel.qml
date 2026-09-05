@@ -265,11 +265,11 @@ Panel {
               anchors.left: parent.left
               anchors.leftMargin: root.rowHoverOverflow
               anchors.verticalCenter: parent.verticalCenter
-              width: Style.space(18)
+              width: Style.space(26)
               text: historyRow.currentReading && root.playing ? "󰏤" : "󰐊"
               color: root.foreground
               font.family: root.fontFamily
-              font.pixelSize: Style.font.body
+              font.pixelSize: Style.space(22)
             }
             Text {
               id: readingLabel
