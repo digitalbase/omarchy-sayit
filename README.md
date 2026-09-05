@@ -58,7 +58,7 @@ Install the native Quickshell bar popup with:
 ./scripts/install-bar.sh
 ```
 
-The SayIt speaker button sits immediately before the audio widget. Click it for the current reading, timeline, pause/resume, stop, playback speed, selection/clipboard reading and four recent readings. Right-click toggles playback; an extra pause button appears in the bar while speech is active. The popup links to the GTK window for models, voices and full history.
+SayIt's original speaking-profile icon sits in the center section of the bar. The compact popup has selection/clipboard reading and play buttons beside four recent readings. A playing reading's button pauses or resumes it. Right-clicking the bar icon also toggles playback. Models, voices and the full player are available through the footer link. The icon comes from upstream SayIt under its MIT license; see the bundled icon notice.
 
 The installer backs up your bar configuration and installs `digitalbase.sayit` under the user plugin directory. No packaged Omarchy files are changed. Disable it with `omarchy plugin disable digitalbase.sayit`.
 

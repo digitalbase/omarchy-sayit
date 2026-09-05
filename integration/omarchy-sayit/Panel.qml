@@ -1,5 +1,5 @@
 import QtQuick
-import QtQuick.Controls as Controls
+import Qt5Compat.GraphicalEffects
 import Quickshell
 import Quickshell.Io
 import qs.Commons
@@ -24,24 +24,9 @@ Panel {
     return "Ready to read"
   }
   readonly property color foreground: bar ? bar.foreground : Color.foreground
-  readonly property string readingText: {
-    var job = snapshot.current
-    if (!job) return "Select text and press F10, or copy it and choose Read clipboard."
-    var segments = job.segments || []
-    for (var i = 0; i < segments.length; i++) {
-      var segment = segments[i]
-      if (snapshot.position >= segment.start && snapshot.position < segment.start + segment.duration)
-        return segment.text
-    }
-    return job.text || ""
-  }
-  implicitWidth: barRow.implicitWidth
-  implicitHeight: barRow.implicitHeight
+  implicitWidth: barButton.implicitWidth
+  implicitHeight: barButton.implicitHeight
 
-  function clock(seconds) {
-    var value = Math.max(0, Math.floor(Number(seconds) || 0))
-    return Math.floor(value / 60) + ":" + String(value % 60).padStart(2, "0")
-  }
   function execute(args) {
     if (action.running) return
     errorMessage = ""
@@ -88,25 +73,32 @@ Panel {
     }
   }
 
-  Row {
-    id: barRow
-    BarIconButton {
-      id: barButton
-      bar: root.bar
-      text: "󰕾"
-      active: root.busy
-      tooltipText: "SayIt · " + root.stateLabel + "\nClick to open · Right-click to pause/resume"
-      onPressed: function(button) {
-        if (button === Qt.RightButton) root.playPause()
-        else root.toggle()
+  BarIconButton {
+    id: barButton
+    bar: root.bar
+    active: root.busy
+    tooltipText: "SayIt · " + root.stateLabel + "\nClick to open · Right-click to pause/resume"
+    iconComponent: Component {
+      Item {
+        Image {
+          id: sayitIcon
+          anchors.fill: parent
+          source: "sayit.svg"
+          sourceSize.width: 64
+          sourceSize.height: 64
+          fillMode: Image.PreserveAspectFit
+          visible: false
+        }
+        ColorOverlay {
+          anchors.fill: sayitIcon
+          source: sayitIcon
+          color: root.busy ? Color.accent : root.barForeground
+        }
       }
     }
-    BarIconButton {
-      bar: root.bar
-      visible: root.busy && !(root.bar && root.bar.vertical)
-      text: root.playing ? "󰏤" : "󰐊"
-      tooltipText: root.playing ? "Pause speech" : "Resume speech"
-      onPressed: root.execute(["toggle"])
+    onPressed: function(button) {
+      if (button === Qt.RightButton) root.playPause()
+      else root.toggle()
     }
   }
 
@@ -162,76 +154,6 @@ Panel {
         maximumLineCount: 3
         elide: Text.ElideRight
       }
-      Text {
-        width: parent.width
-        text: root.readingText
-        textFormat: Text.PlainText
-        color: root.foreground
-        font.family: Style.font.family
-        font.pixelSize: Style.font.body
-        wrapMode: Text.Wrap
-        maximumLineCount: 6
-        elide: Text.ElideRight
-        lineHeight: 1.25
-      }
-      Controls.Slider {
-        width: parent.width
-        from: 0
-        to: Math.max(1, root.snapshot.duration || 0)
-        value: root.snapshot.position || 0
-        enabled: root.busy && root.snapshot.duration > 0
-        id: timeline
-        implicitHeight: Style.space(22)
-        implicitWidth: Style.space(200)
-        background: Rectangle {
-          x: timeline.leftPadding
-          y: timeline.topPadding + timeline.availableHeight / 2 - height / 2
-          width: timeline.availableWidth
-          height: Style.space(3)
-          radius: height / 2
-          color: Qt.alpha(root.foreground, 0.18)
-          Rectangle { width: parent.width * timeline.visualPosition; height: parent.height; radius: parent.radius; color: Color.accent }
-        }
-        handle: Rectangle {
-          x: timeline.leftPadding + timeline.visualPosition * (timeline.availableWidth - width)
-          y: timeline.topPadding + timeline.availableHeight / 2 - height / 2
-          width: Style.space(10); height: width; radius: width / 2
-          color: Color.accent
-        }
-        onMoved: seekDelay.restart()
-        Timer {
-          id: seekDelay
-          interval: 180
-          onTriggered: root.execute(["seek", String(parent.value)])
-        }
-        Accessible.name: "Speech position"
-      }
-      Row {
-        width: parent.width
-        Text {
-          width: parent.width - speedRow.implicitWidth
-          text: root.clock(root.snapshot.position) + " / " + root.clock(root.snapshot.duration)
-          color: root.foreground
-          opacity: 0.65
-          font.family: Style.font.family
-          font.pixelSize: Style.font.caption
-          anchors.verticalCenter: parent.verticalCenter
-        }
-        Row {
-          id: speedRow
-          spacing: Style.space(2)
-          Button { text: "−"; tooltipText: "Slower"; focusable: true; onClicked: root.execute(["rate", String(Math.max(0.5, Number(root.snapshot.rate || 1) - 0.1))]) }
-          Text { text: Number(root.snapshot.rate || 1).toFixed(1) + "×"; color: root.foreground; font.family: Style.font.family; font.pixelSize: Style.font.bodySmall; anchors.verticalCenter: parent.verticalCenter }
-          Button { text: "+"; tooltipText: "Faster"; focusable: true; onClicked: root.execute(["rate", String(Math.min(2, Number(root.snapshot.rate || 1) + 0.1))]) }
-        }
-      }
-      Row {
-        anchors.horizontalCenter: parent.horizontalCenter
-        spacing: Style.space(12)
-        Button { iconText: "󰑟"; text: "10s"; tooltipText: "Back ten seconds"; focusable: true; enabled: root.busy; onClicked: root.execute(["skip", "-10"]) }
-        Button { iconText: root.playing ? "󰏤" : "󰐊"; text: root.playing ? "Pause" : root.busy ? "Resume" : "Play again"; bordered: true; focusable: true; enabled: root.busy || !!(root.snapshot.current && root.snapshot.current.audio); onClicked: root.playPause() }
-        Button { iconText: "󰓛"; text: "Stop"; focusable: true; enabled: root.busy; onClicked: root.execute(["stop"]) }
-      }
       Row {
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: Style.space(8)
@@ -246,12 +168,13 @@ Panel {
           required property var modelData
           width: content.width
           id: historyButton
-          iconText: "󰐊"
-          tooltipText: "Replay reading"
+          readonly property bool currentReading: !!root.snapshot.current && root.snapshot.current.id === modelData.id && root.busy
+          iconText: currentReading && root.playing ? "󰏤" : "󰐊"
+          tooltipText: currentReading ? (root.playing ? "Pause reading" : "Resume reading") : "Play reading"
           leftAlign: true
           focusable: true
           fontSize: Style.font.bodySmall
-          onClicked: root.execute(["replay", modelData.id])
+          onClicked: currentReading ? root.playPause() : root.execute(["replay", modelData.id])
           Text {
             anchors.left: parent.left
             anchors.leftMargin: Style.space(32)

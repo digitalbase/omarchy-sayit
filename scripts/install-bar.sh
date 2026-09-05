@@ -12,6 +12,6 @@ if [[ -f "$config_root/shell.json" ]]; then
   cp "$config_root/shell.json" "$config_root/shell.json.bak-sayit-$(date +%s)"
 fi
 mkdir -p "$plugin"
-cp "$root/integration/omarchy-sayit/manifest.json" "$root/integration/omarchy-sayit/Panel.qml" "$plugin/"
+cp "$root/integration/omarchy-sayit/manifest.json" "$root/integration/omarchy-sayit/Panel.qml" "$root/integration/omarchy-sayit/sayit.svg" "$root/integration/omarchy-sayit/NOTICE.md" "$root/integration/omarchy-sayit/LICENSE" "$plugin/"
 omarchy-shell shell rescanPlugins
-omarchy plugin enable digitalbase.sayit right --before omarchy.audio
+omarchy plugin enable digitalbase.sayit center --index 3
