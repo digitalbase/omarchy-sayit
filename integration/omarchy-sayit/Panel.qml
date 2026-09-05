@@ -14,6 +14,9 @@ Panel {
   property string errorMessage: ""
   readonly property bool online: snapshot.state !== "offline"
   readonly property bool playing: snapshot.state === "playing"
+  readonly property bool generating: snapshot.state === "generating" || !!(snapshot.current && snapshot.current.state === "generating")
+  readonly property string selectionShortcut: snapshot.shortcuts ? snapshot.shortcuts.selection : "F10"
+  readonly property string clipboardShortcut: snapshot.shortcuts ? snapshot.shortcuts.clipboard : ""
   readonly property bool busy: playing || snapshot.state === "paused" || snapshot.state === "generating"
   readonly property string stateLabel: {
     if (!online) return "Service is stopped"
@@ -94,7 +97,15 @@ Panel {
         ColorOverlay {
           anchors.fill: sayitIcon
           source: sayitIcon
-          color: root.busy ? Color.accent : root.barForeground
+          id: animatedIcon
+          color: root.busy || root.generating ? Color.accent : root.barForeground
+          SequentialAnimation on opacity {
+            running: root.generating
+            loops: Animation.Infinite
+            onRunningChanged: if (!running) animatedIcon.opacity = 1
+            NumberAnimation { from: 1; to: 0.35; duration: 650; easing.type: Easing.InOutSine }
+            NumberAnimation { from: 0.35; to: 1; duration: 650; easing.type: Easing.InOutSine }
+          }
         }
       }
     }
@@ -158,10 +169,13 @@ Panel {
         maximumLineCount: 3
         elide: Text.ElideRight
       }
-      Row {
+      Flow {
+        width: parent.width
         spacing: Style.space(4)
         Button {
-          text: "Read clipboard"
+          text: "Read clipboard" + (root.clipboardShortcut ? " · " + root.clipboardShortcut : "")
+          bordered: true
+          implicitHeight: Style.space(32)
           iconText: "󰅍"
           focusable: true
           enabled: root.online
@@ -172,7 +186,9 @@ Panel {
           onClicked: root.execute(["clipboard", "--detach"])
         }
         Button {
-          text: "Read selection"
+          text: "Read selection" + (root.selectionShortcut ? " · " + root.selectionShortcut : "")
+          bordered: true
+          implicitHeight: Style.space(32)
           focusable: true
           enabled: root.online
           foreground: root.foreground
@@ -183,12 +199,14 @@ Panel {
         }
         Button {
           text: "Config"
+          bordered: true
+          implicitHeight: Style.space(32)
           focusable: true
           foreground: root.foreground
           fontFamily: root.fontFamily
           fontSize: Style.font.bodySmall
           horizontalPadding: Style.space(6)
-          onClicked: { Quickshell.execDetached(["sayit", "ui"]); root.close() }
+          onClicked: { Quickshell.execDetached(["sayit", "ui", "--settings"]); root.close() }
         }
       }
       PanelSeparator { foreground: root.foreground }

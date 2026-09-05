@@ -29,7 +29,8 @@ def parser():
             policies.add_argument("--" + policy, dest="policy", action="store_const", const=policy)
         cmd.set_defaults(policy="interrupt")
     commands.add_parser("daemon").add_argument("--http-port", type=int)
-    for name in ("ui", "pause", "resume", "toggle", "stop", "clear", "history", "jobs", "doctor"):
+    commands.add_parser("ui").add_argument("--settings", action="store_true")
+    for name in ("pause", "resume", "toggle", "stop", "clear", "history", "jobs", "doctor"):
         commands.add_parser(name)
     cmd = commands.add_parser("status")
     cmd.add_argument("--follow", action="store_true")
@@ -53,7 +54,7 @@ def parser():
     cmd.add_argument("id")
     cmd.add_argument("output")
     cmd = commands.add_parser("settings")
-    cmd.add_argument("key", nargs="?", choices=["model", "rate", "pace", "idle_seconds", "device"])
+    cmd.add_argument("key", nargs="?", choices=["model", "rate", "pace", "idle_seconds", "device", "selection_shortcut", "clipboard_shortcut"])
     cmd.add_argument("value", nargs="?")
     cmd = commands.add_parser("voices")
     sub = cmd.add_subparsers(dest="action")
@@ -80,7 +81,7 @@ def main():
             return daemon(args["http_port"])
         if command == "ui":
             from .ui import main as ui
-            return ui()
+            return ui(args["settings"])
         if command == "doctor":
             result = {"commands": {n: shutil.which(n) for n in ("mpv", "wl-paste", "ffmpeg", "voxtype", "pw-record")},
                       "data": str(data_dir()), "installedModels": [m["id"] for m in models() if installed(m)]}
@@ -156,7 +157,7 @@ def main():
                 raise ValueError("Export as .wav, .mp3, .flac or .ogg")
             result = {"output": str(output)}
         elif command == "settings":
-            if bool(args["key"]) != bool(args["value"]):
+            if (args["key"] is None) != (args["value"] is None):
                 raise ValueError("Provide both a setting name and value")
             values = {args["key"]: args["value"]} if args["key"] else {}
             result = call("settings", values=values)

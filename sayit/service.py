@@ -20,7 +20,7 @@ from .player import Player
 from .voices import voices
 
 MAX_REQUEST = 1_000_000
-DEFAULTS = {"model": "kokoro-bf16", "rate": 1., "pace": 1., "idle_seconds": 600, "device": "auto"}
+DEFAULTS = {"model": "kokoro-bf16", "rate": 1., "pace": 1., "idle_seconds": 600, "device": "auto", "selection_shortcut": "F10", "clipboard_shortcut": ""}
 
 
 def chunks(text, limit=350):
@@ -174,7 +174,8 @@ class Service:
             return {"state": state, "current": job, "queued": len(self.pending), "loadedModel": self.loaded,
                     "position": local_position + offset,
                     "duration": sum(s["duration"] for s in job["segments"]) if job else 0,
-                    "rate": self.player.get("speed", self.settings["rate"])}
+                    "rate": self.player.get("speed", self.settings["rate"]),
+                    "shortcuts": {"selection": self.settings["selection_shortcut"], "clipboard": self.settings["clipboard_shortcut"]}}
 
     def dispatch(self, req):
         command = req.get("command")
@@ -199,8 +200,14 @@ class Service:
                     updated[key] = bounded_number(updated[key], low, high, key)
                 if updated["device"] not in ("auto", "cpu", "cuda"):
                     raise ValueError("device must be auto, cpu or cuda")
+                from contextlib import nullcontext
+                from .shortcuts import FIELDS, normalize, apply
+                for key in FIELDS:
+                    updated[key] = normalize(updated[key])
+                changing_shortcuts = any(key in values for key in FIELDS)
+                with apply(updated) if changing_shortcuts else nullcontext():
+                    atomic_json(config_dir() / "settings.json", updated)
                 self.settings = updated
-                atomic_json(config_dir() / "settings.json", updated)
                 return updated
             if command in ("pause", "resume", "toggle"):
                 self.paused = (not self.paused) if command == "toggle" else command == "pause"

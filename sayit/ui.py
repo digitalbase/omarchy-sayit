@@ -15,7 +15,7 @@ from .service import call
 
 
 class Window(Gtk.Window):
-    def __init__(self):
+    def __init__(self, settings=False):
         super().__init__(title="SayIt")
         self.set_default_size(740, 650)
         self.set_border_width(18)
@@ -40,6 +40,8 @@ class Window(Gtk.Window):
             build(box)
             book.append_page(box, Gtk.Label(label=label))
         self.show_all()
+        if settings:
+            book.set_current_page(4)
         self.poll_id = GLib.timeout_add(500, self.poll)
 
     def close(self, *_):
@@ -242,6 +244,11 @@ class Window(Gtk.Window):
         refresh()
 
     def settings_page(self, box):
+        box.pack_start(Gtk.Label(label="Read selected text shortcut", xalign=0), False, False, 0)
+        self.selection_shortcut = self.entry(box, "F10")
+        box.pack_start(Gtk.Label(label="Read clipboard shortcut", xalign=0), False, False, 0)
+        self.clipboard_shortcut = self.entry(box, "Unassigned")
+        box.pack_start(Gtk.Label(label="Use keys such as F10 or CTRL + ALT + R. Leave a field empty to disable it.\nSaving applies the shortcuts to Hyprland; existing shortcuts are checked for conflicts.", wrap=True, xalign=0), False, False, 0)
         self.default_model = self.entry(box, "Default model ID")
         self.idle = Gtk.SpinButton.new_with_range(0, 86400, 60)
         self.idle.set_value(600)
@@ -254,16 +261,19 @@ class Window(Gtk.Window):
         box.pack_start(self.device, False, False, 0)
         def save():
             values = {"model": self.default_model.get_text(), "idle_seconds": self.idle.get_value(),
-                      "device": self.device.get_active_text()}
+                      "device": self.device.get_active_text(), "selection_shortcut": self.selection_shortcut.get_text(),
+                      "clipboard_shortcut": self.clipboard_shortcut.get_text()}
             self.task(lambda: call("settings", values=values), lambda _: self.message.set_text("Settings saved"))
         self.button(box, "Save settings", save)
         def loaded(settings):
+            self.selection_shortcut.set_text(settings["selection_shortcut"])
+            self.clipboard_shortcut.set_text(settings["clipboard_shortcut"])
             self.default_model.set_text(settings["model"])
             self.idle.set_value(settings["idle_seconds"])
             self.device.set_active(("auto", "cpu", "cuda").index(settings["device"]))
             self.model.set_active_id(settings["model"])
         self.task(lambda: call("settings"), loaded)
-        box.pack_start(Gtk.Label(label="F9 keeps its Voxtype dictation binding. SayIt exposes media controls so Voxtype can pause speech during recording.\n\nSuggested speech shortcuts are in integration/bindings.lua.", wrap=True, xalign=0), False, False, 0)
+        box.pack_start(Gtk.Label(label="F9 keeps its Voxtype dictation binding. SayIt exposes media controls so Voxtype can pause speech during recording.\n\nConfigure selection and clipboard shortcuts above. F9 remains assigned to dictation.", wrap=True, xalign=0), False, False, 0)
 
     def poll(self):
         if self.status_busy:
@@ -293,8 +303,8 @@ class Window(Gtk.Window):
         return True
 
 
-def main():
-    window = Window()
+def main(settings=False):
+    window = Window(settings=settings)
     try:
         gi.require_version("AyatanaAppIndicator3", "0.1")
         from gi.repository import AyatanaAppIndicator3

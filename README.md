@@ -37,18 +37,18 @@ From this checkout:
 sayit ui
 ```
 
-The installer links this checkout into `~/.local/bin`, installs a desktop launcher and enables a user service. Keep the checkout in place. It does not edit Hyprland bindings. Copy the bindings in [integration/bindings.lua](integration/bindings.lua) into `~/.config/hypr/bindings.lua` after checking for conflicts, then run `hyprctl reload` and `hyprctl configerrors`.
+The installer links this checkout into `~/.local/bin`, installs a desktop launcher and enables a user service. Keep the checkout in place. Open Config in the bar popup and save Settings to apply the selection and clipboard shortcuts. Selection defaults to F10; clipboard defaults to unassigned. Settings checks conflicts, backs up the user bindings, reloads Hyprland and restores the old file if validation fails. Optional playback shortcuts are in [integration/bindings.lua](integration/bindings.lua).
 
 | Shortcut | Action |
 | --- | --- |
 | F9, existing Omarchy binding | Hold to dictate with Voxtype |
 | F10 | Read selected text |
-| Shift+F10 | Read clipboard |
+| Unassigned by default | Read clipboard; configurable in Settings |
 | Ctrl+F10 | Pause/resume |
 | Alt+F10 | Stop and clear the queue |
 | Super+F10 | Open the player |
 
-Some Wayland apps do not publish a primary selection. In those apps, copy the text and use Shift+F10. There is no universal Linux equivalent of macOS Accessibility selection retrieval.
+Some Wayland apps do not publish a primary selection. In those apps, copy the text and click Read clipboard, or assign a clipboard shortcut in Settings. There is no universal Linux equivalent of macOS Accessibility selection retrieval.
 
 ## Omarchy bar player
 
@@ -58,7 +58,7 @@ Install the native Quickshell bar popup with:
 ./scripts/install-bar.sh
 ```
 
-SayIt's original speaking-profile icon sits in the center section of the bar. The compact popup has selection/clipboard reading and play buttons beside four recent readings. A playing reading's button pauses or resumes it. Right-clicking the bar icon also toggles playback. The left-aligned top actions are Read clipboard, Read selection and Config. Config opens models, voices and the full player. The header uses Omarchy's PanelHero component, and reading rows use the same typography and outward hover margins as Obsidian Daily. The icon comes from upstream SayIt under its MIT license; see the bundled icon notice.
+SayIt's original speaking-profile icon sits in the center section of the bar. The compact popup has selection/clipboard reading and play buttons beside four recent readings. A playing reading's button pauses or resumes it. Right-clicking the bar icon also toggles playback. The left-aligned top buttons are Read clipboard, Read selection and Config. Reading buttons show the configured keyboard shortcuts. The bar icon pulses in the accent color during generation and remains steady during playback. Config opens Settings directly, including the two shortcut fields; models, voices and the full player are available in the other tabs. The header uses Omarchy's PanelHero component, and reading rows use the same typography and outward hover margins as Obsidian Daily. The icon comes from upstream SayIt under its MIT license; see the bundled icon notice.
 
 The installer backs up your bar configuration and installs `digitalbase.sayit` under the user plugin directory. No packaged Omarchy files are changed. Disable it with `omarchy plugin disable digitalbase.sayit`.
 
@@ -90,6 +90,9 @@ The default queue policy interrupts the current job and preserves pending jobs. 
 sayit settings model kokoro-bf16
 sayit settings idle_seconds 600
 sayit settings device cpu
+sayit settings selection_shortcut F10
+sayit settings clipboard_shortcut "CTRL + ALT + R"
+sayit settings clipboard_shortcut ""  # Unassign
 sayit models
 sayit setup qwen
 sayit download qwen3-17b-customvoice-8bit
