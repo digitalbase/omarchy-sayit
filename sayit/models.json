@@ -1,0 +1,1166 @@
+[
+  {
+    "id": "kokoro-bf16",
+    "displayName": "Kokoro",
+    "family": "Kokoro",
+    "voices": [
+      "af_heart",
+      "af_bella",
+      "af_nicole",
+      "am_adam",
+      "bf_emma",
+      "bm_george",
+      "ef_dora",
+      "ff_siwis",
+      "jf_alpha",
+      "zm_yunxi"
+    ],
+    "defaultVoice": "af_heart",
+    "defaultLanguage": "en-US",
+    "languages": [
+      "en-US",
+      "en-GB",
+      "es",
+      "fr",
+      "it",
+      "pt",
+      "ja",
+      "hi",
+      "cmn"
+    ],
+    "capabilities": {
+      "presetVoices": true,
+      "voiceDescription": false,
+      "voiceCloning": false,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": true,
+      "requiresReferenceAudio": false,
+      "voiceDiscovery": false,
+      "randomVoiceSampling": false
+    },
+    "stability": "recommended",
+    "upstreamRepository": "mlx-community/Kokoro-82M-bf16",
+    "upstreamLicense": {
+      "identifier": "Apache-2.0",
+      "url": "https://huggingface.co/mlx-community/Kokoro-82M-bf16",
+      "commercialUseAllowed": true,
+      "requiresAcceptance": false
+    },
+    "engine": "kokoro",
+    "repository": "hexgrad/Kokoro-82M",
+    "mode": "preset",
+    "portStatus": "adapter",
+    "upstreamCapabilities": {
+      "presetVoices": true,
+      "voiceDescription": false,
+      "voiceCloning": false,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": true,
+      "requiresReferenceAudio": false
+    }
+  },
+  {
+    "id": "kitten-mini-08",
+    "displayName": "Kitten Mini",
+    "family": "KittenTTS",
+    "voices": [
+      "Bella",
+      "Jasper",
+      "Luna",
+      "Bruno",
+      "Rosie",
+      "Hugo",
+      "Kiki",
+      "Leo"
+    ],
+    "defaultVoice": "Jasper",
+    "defaultLanguage": "en",
+    "languages": [
+      "en"
+    ],
+    "capabilities": {
+      "presetVoices": true,
+      "voiceDescription": false,
+      "voiceCloning": false,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false
+    },
+    "stability": "experimental",
+    "upstreamRepository": "mlx-community/kitten-tts-mini-0.8",
+    "upstreamLicense": {
+      "identifier": "Apache-2.0",
+      "url": "https://huggingface.co/mlx-community/kitten-tts-mini-0.8",
+      "commercialUseAllowed": true,
+      "requiresAcceptance": false
+    },
+    "engine": null,
+    "repository": null,
+    "portStatus": "not-ported",
+    "upstreamCapabilities": {
+      "presetVoices": true,
+      "voiceDescription": false,
+      "voiceCloning": false,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false
+    }
+  },
+  {
+    "id": "kitten-nano-08-4bit",
+    "displayName": "Kitten Nano 4-bit",
+    "family": "KittenTTS",
+    "voices": [
+      "Bella",
+      "Jasper",
+      "Luna",
+      "Bruno",
+      "Rosie",
+      "Hugo",
+      "Kiki",
+      "Leo"
+    ],
+    "defaultVoice": "Jasper",
+    "defaultLanguage": "en",
+    "languages": [
+      "en"
+    ],
+    "capabilities": {
+      "presetVoices": true,
+      "voiceDescription": false,
+      "voiceCloning": false,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false,
+      "voiceDiscovery": false,
+      "randomVoiceSampling": false
+    },
+    "stability": "experimental",
+    "upstreamRepository": "mlx-community/kitten-tts-nano-0.8-4bit",
+    "upstreamLicense": {
+      "identifier": "Apache-2.0",
+      "url": "https://huggingface.co/KittenML/kitten-tts-nano-0.8-fp32",
+      "commercialUseAllowed": true,
+      "requiresAcceptance": false
+    },
+    "engine": null,
+    "repository": null,
+    "portStatus": "not-ported",
+    "upstreamCapabilities": {
+      "presetVoices": true,
+      "voiceDescription": false,
+      "voiceCloning": false,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false,
+      "voiceDiscovery": false,
+      "randomVoiceSampling": false
+    }
+  },
+  {
+    "id": "pocket-tts",
+    "displayName": "Pocket TTS",
+    "family": "Pocket TTS",
+    "voices": [
+      "alba",
+      "azelma",
+      "cosette",
+      "eponine",
+      "fantine",
+      "javert",
+      "jean",
+      "marius"
+    ],
+    "defaultVoice": "alba",
+    "defaultLanguage": "en",
+    "languages": [
+      "en"
+    ],
+    "capabilities": {
+      "presetVoices": true,
+      "voiceDescription": false,
+      "voiceCloning": false,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false
+    },
+    "stability": "experimental",
+    "upstreamRepository": "mlx-community/pocket-tts",
+    "upstreamLicense": {
+      "identifier": "CC-BY-4.0",
+      "url": "https://huggingface.co/mlx-community/pocket-tts",
+      "commercialUseAllowed": true,
+      "requiresAcceptance": false
+    },
+    "engine": null,
+    "repository": null,
+    "portStatus": "not-ported",
+    "upstreamCapabilities": {
+      "presetVoices": true,
+      "voiceDescription": false,
+      "voiceCloning": false,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false
+    }
+  },
+  {
+    "id": "soprano-11-bf16",
+    "displayName": "Soprano",
+    "family": "Soprano",
+    "voices": [],
+    "defaultVoice": null,
+    "defaultLanguage": "en",
+    "languages": [
+      "en"
+    ],
+    "capabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": false,
+      "streaming": false,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false
+    },
+    "stability": "experimental",
+    "upstreamRepository": "mlx-community/Soprano-1.1-80M-bf16",
+    "upstreamLicense": {
+      "identifier": "See model card",
+      "url": "https://huggingface.co/mlx-community/Soprano-1.1-80M-bf16",
+      "commercialUseAllowed": false,
+      "requiresAcceptance": true
+    },
+    "engine": null,
+    "repository": null,
+    "portStatus": "not-ported",
+    "upstreamCapabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": false,
+      "streaming": false,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false
+    }
+  },
+  {
+    "id": "qwen3-06b-base-8bit",
+    "displayName": "Qwen3 TTS",
+    "family": "Qwen3-TTS",
+    "voices": [],
+    "defaultVoice": null,
+    "defaultLanguage": "en",
+    "languages": [
+      "en",
+      "zh",
+      "ja",
+      "ko",
+      "de",
+      "fr",
+      "ru",
+      "pt",
+      "es",
+      "it"
+    ],
+    "capabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": true,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": true,
+      "requiresReferenceAudio": true,
+      "voiceDiscovery": false,
+      "randomVoiceSampling": false,
+      "voiceCloneRequirements": {
+        "minimumDuration": 3,
+        "recommendedMinimumDuration": 6,
+        "recommendedMaximumDuration": 10,
+        "maximumDuration": 15,
+        "transcriptRequired": true
+      }
+    },
+    "stability": "recommended",
+    "upstreamRepository": "mlx-community/Qwen3-TTS-12Hz-0.6B-Base-8bit",
+    "upstreamLicense": {
+      "identifier": "Apache-2.0",
+      "url": "https://huggingface.co/mlx-community/Qwen3-TTS-12Hz-0.6B-Base-8bit",
+      "commercialUseAllowed": true,
+      "requiresAcceptance": false
+    },
+    "engine": "qwen",
+    "repository": "Qwen/Qwen3-TTS-12Hz-0.6B-Base",
+    "mode": "clone",
+    "portStatus": "adapter",
+    "upstreamCapabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": true,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": true,
+      "requiresReferenceAudio": false,
+      "voiceDiscovery": true,
+      "randomVoiceSampling": true,
+      "voiceCloneRequirements": {
+        "minimumDuration": 3,
+        "recommendedMinimumDuration": 6,
+        "recommendedMaximumDuration": 10,
+        "maximumDuration": 15,
+        "transcriptRequired": true
+      }
+    }
+  },
+  {
+    "id": "qwen3-17b-voicedesign-8bit",
+    "displayName": "Qwen3 VoiceDesign",
+    "family": "Qwen3-TTS",
+    "voices": [
+      "Warm storyteller",
+      "Dramatic narrator",
+      "Calm documentary narrator",
+      "Bright animated guide",
+      "Deep cinematic narrator",
+      "Gentle conversational voice"
+    ],
+    "defaultVoice": "Warm storyteller",
+    "defaultLanguage": "en",
+    "languages": [
+      "en",
+      "zh",
+      "ja",
+      "ko",
+      "de",
+      "fr",
+      "ru",
+      "pt",
+      "es",
+      "it"
+    ],
+    "capabilities": {
+      "presetVoices": true,
+      "voiceDescription": true,
+      "voiceCloning": false,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": true,
+      "requiresReferenceAudio": false,
+      "voiceDiscovery": false,
+      "randomVoiceSampling": false
+    },
+    "stability": "experimental",
+    "upstreamRepository": "mlx-community/Qwen3-TTS-12Hz-1.7B-VoiceDesign-8bit",
+    "upstreamLicense": {
+      "identifier": "Apache-2.0",
+      "url": "https://huggingface.co/mlx-community/Qwen3-TTS-12Hz-1.7B-VoiceDesign-8bit",
+      "commercialUseAllowed": true,
+      "requiresAcceptance": false
+    },
+    "engine": "qwen",
+    "repository": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+    "mode": "design",
+    "portStatus": "adapter",
+    "upstreamCapabilities": {
+      "presetVoices": true,
+      "voiceDescription": true,
+      "voiceCloning": false,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": true,
+      "requiresReferenceAudio": false,
+      "voiceDiscovery": false,
+      "randomVoiceSampling": false
+    }
+  },
+  {
+    "id": "qwen3-17b-customvoice-8bit",
+    "displayName": "Qwen3 CustomVoice",
+    "family": "Qwen3-TTS",
+    "voices": [
+      "ryan",
+      "aiden",
+      "serena",
+      "vivian",
+      "uncle_fu",
+      "dylan",
+      "eric",
+      "ono_anna",
+      "sohee"
+    ],
+    "defaultVoice": "ryan",
+    "defaultLanguage": "en",
+    "languages": [
+      "en",
+      "zh",
+      "ja",
+      "ko",
+      "de",
+      "fr",
+      "ru",
+      "pt",
+      "es",
+      "it"
+    ],
+    "capabilities": {
+      "presetVoices": true,
+      "voiceDescription": true,
+      "voiceCloning": false,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": true,
+      "requiresReferenceAudio": false,
+      "voiceDiscovery": false,
+      "randomVoiceSampling": false,
+      "voiceCloneRequirements": {
+        "minimumDuration": 3,
+        "recommendedMinimumDuration": 6,
+        "recommendedMaximumDuration": 10,
+        "maximumDuration": 15,
+        "transcriptRequired": true
+      }
+    },
+    "stability": "recommended",
+    "upstreamRepository": "mlx-community/Qwen3-TTS-12Hz-1.7B-CustomVoice-8bit",
+    "upstreamLicense": {
+      "identifier": "Apache-2.0",
+      "url": "https://huggingface.co/mlx-community/Qwen3-TTS-12Hz-1.7B-CustomVoice-8bit",
+      "commercialUseAllowed": true,
+      "requiresAcceptance": false
+    },
+    "engine": "qwen",
+    "repository": "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
+    "mode": "preset",
+    "portStatus": "adapter",
+    "upstreamCapabilities": {
+      "presetVoices": true,
+      "voiceDescription": false,
+      "voiceCloning": true,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": true,
+      "requiresReferenceAudio": false,
+      "voiceDiscovery": false,
+      "randomVoiceSampling": false,
+      "voiceCloneRequirements": {
+        "minimumDuration": 3,
+        "recommendedMinimumDuration": 6,
+        "recommendedMaximumDuration": 10,
+        "maximumDuration": 15,
+        "transcriptRequired": true
+      }
+    }
+  },
+  {
+    "id": "chatterbox-turbo-fp16",
+    "displayName": "Chatterbox Turbo",
+    "family": "Chatterbox",
+    "voices": [],
+    "defaultVoice": null,
+    "defaultLanguage": "en",
+    "languages": [
+      "en"
+    ],
+    "capabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": true,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false,
+      "voiceDiscovery": false,
+      "randomVoiceSampling": false,
+      "voiceCloneRequirements": {
+        "minimumDuration": 5,
+        "recommendedMinimumDuration": 8,
+        "recommendedMaximumDuration": 12,
+        "maximumDuration": 15,
+        "transcriptRequired": false
+      }
+    },
+    "stability": "experimental",
+    "upstreamRepository": "mlx-community/chatterbox-turbo-fp16",
+    "upstreamLicense": {
+      "identifier": "Apache-2.0",
+      "url": "https://huggingface.co/mlx-community/chatterbox-turbo-fp16",
+      "commercialUseAllowed": true,
+      "requiresAcceptance": false
+    },
+    "engine": "chatterbox",
+    "repository": "ResembleAI/chatterbox-turbo",
+    "mode": "turbo",
+    "portStatus": "adapter",
+    "upstreamCapabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": true,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false,
+      "voiceDiscovery": false,
+      "randomVoiceSampling": false,
+      "voiceCloneRequirements": {
+        "minimumDuration": 5,
+        "recommendedMinimumDuration": 8,
+        "recommendedMaximumDuration": 12,
+        "maximumDuration": 15,
+        "transcriptRequired": false
+      }
+    }
+  },
+  {
+    "id": "chatterbox-multilingual-v3-fp16",
+    "displayName": "Chatterbox Multilingual V3",
+    "family": "Chatterbox",
+    "voices": [],
+    "defaultVoice": null,
+    "defaultLanguage": "en",
+    "languages": [
+      "ar",
+      "da",
+      "de",
+      "el",
+      "en",
+      "es",
+      "fi",
+      "fr",
+      "he",
+      "hi",
+      "it",
+      "ja",
+      "ko",
+      "ms",
+      "nl",
+      "no",
+      "pl",
+      "pt",
+      "ru",
+      "sv",
+      "sw",
+      "tr",
+      "zh"
+    ],
+    "capabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": true,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": true,
+      "requiresReferenceAudio": false,
+      "voiceDiscovery": false,
+      "randomVoiceSampling": false,
+      "voiceCloneRequirements": {
+        "minimumDuration": 5,
+        "recommendedMinimumDuration": 8,
+        "recommendedMaximumDuration": 12,
+        "maximumDuration": 15,
+        "transcriptRequired": false
+      }
+    },
+    "stability": "experimental",
+    "upstreamRepository": "mlx-community/chatterbox-fp16",
+    "upstreamLicense": {
+      "identifier": "Apache-2.0",
+      "url": "https://huggingface.co/mlx-community/chatterbox-fp16",
+      "commercialUseAllowed": true,
+      "requiresAcceptance": false
+    },
+    "engine": "chatterbox",
+    "repository": "ResembleAI/chatterbox",
+    "mode": "multilingual",
+    "portStatus": "adapter",
+    "upstreamCapabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": true,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": true,
+      "requiresReferenceAudio": false,
+      "voiceDiscovery": false,
+      "randomVoiceSampling": false,
+      "voiceCloneRequirements": {
+        "minimumDuration": 5,
+        "recommendedMinimumDuration": 8,
+        "recommendedMaximumDuration": 12,
+        "maximumDuration": 15,
+        "transcriptRequired": false
+      }
+    }
+  },
+  {
+    "id": "chatterbox-fp16",
+    "displayName": "Chatterbox",
+    "family": "Chatterbox",
+    "voices": [],
+    "defaultVoice": null,
+    "defaultLanguage": "en",
+    "languages": [
+      "en"
+    ],
+    "capabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": true,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false,
+      "voiceDiscovery": false,
+      "randomVoiceSampling": false,
+      "voiceCloneRequirements": {
+        "minimumDuration": 5,
+        "recommendedMinimumDuration": 8,
+        "recommendedMaximumDuration": 12,
+        "maximumDuration": 15,
+        "transcriptRequired": false
+      }
+    },
+    "stability": "experimental",
+    "upstreamRepository": "mlx-community/Chatterbox-TTS-fp16",
+    "upstreamLicense": {
+      "identifier": "See model card",
+      "url": "https://huggingface.co/mlx-community/Chatterbox-TTS-fp16",
+      "commercialUseAllowed": false,
+      "requiresAcceptance": true
+    },
+    "engine": "chatterbox",
+    "repository": "ResembleAI/chatterbox",
+    "mode": "original",
+    "portStatus": "adapter",
+    "upstreamCapabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": true,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false,
+      "voiceDiscovery": false,
+      "randomVoiceSampling": false,
+      "voiceCloneRequirements": {
+        "minimumDuration": 5,
+        "recommendedMinimumDuration": 8,
+        "recommendedMaximumDuration": 12,
+        "maximumDuration": 15,
+        "transcriptRequired": false
+      }
+    }
+  },
+  {
+    "id": "omnivoice",
+    "displayName": "OmniVoice BF16",
+    "family": "OmniVoice",
+    "voices": [],
+    "defaultVoice": null,
+    "defaultLanguage": "en",
+    "languages": [
+      "en"
+    ],
+    "capabilities": {
+      "presetVoices": false,
+      "voiceDescription": true,
+      "voiceCloning": true,
+      "streaming": false,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false,
+      "voiceDiscovery": false,
+      "randomVoiceSampling": false,
+      "voiceCloneRequirements": {
+        "minimumDuration": 3,
+        "recommendedMinimumDuration": 5,
+        "recommendedMaximumDuration": 10,
+        "maximumDuration": 10,
+        "transcriptRequired": true
+      }
+    },
+    "stability": "recommended",
+    "upstreamRepository": "mlx-community/OmniVoice-bfloat16",
+    "upstreamLicense": {
+      "identifier": "Apache-2.0",
+      "url": "https://huggingface.co/mlx-community/OmniVoice-bfloat16",
+      "commercialUseAllowed": true,
+      "requiresAcceptance": false
+    },
+    "engine": "omnivoice",
+    "repository": "k2-fsa/OmniVoice",
+    "mode": "auto",
+    "portStatus": "adapter",
+    "upstreamCapabilities": {
+      "presetVoices": false,
+      "voiceDescription": true,
+      "voiceCloning": true,
+      "streaming": false,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false,
+      "voiceDiscovery": true,
+      "randomVoiceSampling": true,
+      "voiceCloneRequirements": {
+        "minimumDuration": 3,
+        "recommendedMinimumDuration": 5,
+        "recommendedMaximumDuration": 10,
+        "maximumDuration": 10,
+        "transcriptRequired": true
+      }
+    }
+  },
+  {
+    "id": "fish-s2-pro-8bit",
+    "displayName": "Fish Audio S2 Pro",
+    "family": "Fish Audio",
+    "voices": [],
+    "defaultVoice": null,
+    "defaultLanguage": "en",
+    "languages": [
+      "en",
+      "zh",
+      "ja",
+      "ko"
+    ],
+    "capabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": true,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": true,
+      "requiresReferenceAudio": true,
+      "voiceDiscovery": true,
+      "randomVoiceSampling": true,
+      "voiceCloneRequirements": {
+        "minimumDuration": 10,
+        "recommendedMinimumDuration": 12,
+        "recommendedMaximumDuration": 20,
+        "maximumDuration": 30,
+        "transcriptRequired": true
+      }
+    },
+    "stability": "unavailable",
+    "upstreamRepository": "mlx-community/fish-audio-s2-pro-8bit",
+    "upstreamLicense": {
+      "identifier": "See model card",
+      "url": "https://huggingface.co/mlx-community/fish-audio-s2-pro-8bit",
+      "commercialUseAllowed": false,
+      "requiresAcceptance": true
+    },
+    "engine": null,
+    "repository": null,
+    "portStatus": "not-ported",
+    "upstreamCapabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": true,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": true,
+      "requiresReferenceAudio": true,
+      "voiceDiscovery": true,
+      "randomVoiceSampling": true,
+      "voiceCloneRequirements": {
+        "minimumDuration": 10,
+        "recommendedMinimumDuration": 12,
+        "recommendedMaximumDuration": 20,
+        "maximumDuration": 30,
+        "transcriptRequired": true
+      }
+    }
+  },
+  {
+    "id": "irodori-v3-8bit",
+    "displayName": "Irodori",
+    "family": "Irodori TTS",
+    "voices": [],
+    "defaultVoice": null,
+    "defaultLanguage": "ja",
+    "languages": [
+      "ja"
+    ],
+    "capabilities": {
+      "presetVoices": false,
+      "voiceDescription": true,
+      "voiceCloning": false,
+      "streaming": false,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false
+    },
+    "stability": "experimental",
+    "upstreamRepository": "mlx-community/Irodori-TTS-600M-v3-VoiceDesign-8bit",
+    "upstreamLicense": {
+      "identifier": "See model card",
+      "url": "https://huggingface.co/mlx-community/Irodori-TTS-600M-v3-VoiceDesign-8bit",
+      "commercialUseAllowed": false,
+      "requiresAcceptance": true
+    },
+    "engine": null,
+    "repository": null,
+    "portStatus": "not-ported",
+    "upstreamCapabilities": {
+      "presetVoices": false,
+      "voiceDescription": true,
+      "voiceCloning": false,
+      "streaming": false,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false
+    }
+  },
+  {
+    "id": "vyvo-en-4bit",
+    "displayName": "Vyvo",
+    "family": "VyvoTTS",
+    "voices": [],
+    "defaultVoice": null,
+    "defaultLanguage": "en",
+    "languages": [
+      "en"
+    ],
+    "capabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": false,
+      "streaming": false,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false
+    },
+    "stability": "experimental",
+    "upstreamRepository": "mlx-community/VyvoTTS-EN-Beta-4bit",
+    "upstreamLicense": {
+      "identifier": "See model card",
+      "url": "https://huggingface.co/mlx-community/VyvoTTS-EN-Beta-4bit",
+      "commercialUseAllowed": false,
+      "requiresAcceptance": true
+    },
+    "engine": null,
+    "repository": null,
+    "portStatus": "not-ported",
+    "upstreamCapabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": false,
+      "streaming": false,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false
+    }
+  },
+  {
+    "id": "orpheus-3b-bf16",
+    "displayName": "Orpheus",
+    "family": "Orpheus",
+    "voices": [
+      "tara",
+      "leah",
+      "jess",
+      "leo",
+      "dan",
+      "mia",
+      "zac",
+      "zoe"
+    ],
+    "defaultVoice": "tara",
+    "defaultLanguage": "en",
+    "languages": [
+      "en"
+    ],
+    "capabilities": {
+      "presetVoices": true,
+      "voiceDescription": false,
+      "voiceCloning": false,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false
+    },
+    "stability": "experimental",
+    "upstreamRepository": "mlx-community/orpheus-3b-0.1-ft-bf16",
+    "upstreamLicense": {
+      "identifier": "See model card",
+      "url": "https://huggingface.co/mlx-community/orpheus-3b-0.1-ft-bf16",
+      "commercialUseAllowed": false,
+      "requiresAcceptance": true
+    },
+    "engine": null,
+    "repository": null,
+    "portStatus": "not-ported",
+    "upstreamCapabilities": {
+      "presetVoices": true,
+      "voiceDescription": false,
+      "voiceCloning": false,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false
+    }
+  },
+  {
+    "id": "moss-tts",
+    "displayName": "MOSS TTS",
+    "family": "MOSS-TTS",
+    "voices": [],
+    "defaultVoice": null,
+    "defaultLanguage": "en",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "capabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": false,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": true,
+      "requiresReferenceAudio": false
+    },
+    "stability": "unavailable",
+    "upstreamRepository": "OpenMOSS-Team/MOSS-TTS",
+    "upstreamLicense": {
+      "identifier": "See model card",
+      "url": "https://huggingface.co/OpenMOSS-Team/MOSS-TTS",
+      "commercialUseAllowed": false,
+      "requiresAcceptance": true
+    },
+    "engine": null,
+    "repository": null,
+    "portStatus": "not-ported",
+    "upstreamCapabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": false,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": true,
+      "requiresReferenceAudio": false
+    }
+  },
+  {
+    "id": "orpheus-3b-4bit",
+    "displayName": "Orpheus 4-bit",
+    "family": "Orpheus",
+    "voices": [
+      "tara",
+      "leah",
+      "jess",
+      "leo",
+      "dan",
+      "mia",
+      "zac",
+      "zoe"
+    ],
+    "defaultVoice": "tara",
+    "defaultLanguage": "en",
+    "languages": [
+      "en"
+    ],
+    "capabilities": {
+      "presetVoices": true,
+      "voiceDescription": false,
+      "voiceCloning": false,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false,
+      "voiceDiscovery": false,
+      "randomVoiceSampling": false
+    },
+    "stability": "experimental",
+    "upstreamRepository": "mlx-community/orpheus-3b-0.1-ft-4bit",
+    "upstreamLicense": {
+      "identifier": "Apache-2.0",
+      "url": "https://huggingface.co/mlx-community/orpheus-3b-0.1-ft-4bit",
+      "commercialUseAllowed": true,
+      "requiresAcceptance": false
+    },
+    "engine": null,
+    "repository": null,
+    "portStatus": "not-ported",
+    "upstreamCapabilities": {
+      "presetVoices": true,
+      "voiceDescription": false,
+      "voiceCloning": false,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false,
+      "voiceDiscovery": false,
+      "randomVoiceSampling": false
+    }
+  },
+  {
+    "id": "marvis-250m-8bit",
+    "displayName": "Marvis",
+    "family": "Marvis TTS",
+    "voices": [],
+    "defaultVoice": null,
+    "defaultLanguage": "en",
+    "languages": [
+      "en"
+    ],
+    "capabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": false,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false
+    },
+    "stability": "unavailable",
+    "upstreamRepository": "Marvis-AI/marvis-tts-250m-v0.2-MLX-8bit",
+    "upstreamLicense": {
+      "identifier": "See model card",
+      "url": "https://huggingface.co/Marvis-AI/marvis-tts-250m-v0.2-MLX-8bit",
+      "commercialUseAllowed": false,
+      "requiresAcceptance": true
+    },
+    "engine": null,
+    "repository": null,
+    "portStatus": "not-ported",
+    "upstreamCapabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": false,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": false
+    }
+  },
+  {
+    "id": "index-tts",
+    "displayName": "IndexTTS",
+    "family": "IndexTTS",
+    "voices": [],
+    "defaultVoice": null,
+    "defaultLanguage": null,
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "capabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": true,
+      "streaming": false,
+      "longForm": true,
+      "languageSelection": true,
+      "requiresReferenceAudio": true
+    },
+    "stability": "unavailable",
+    "upstreamRepository": "mlx-community/IndexTTS",
+    "upstreamLicense": {
+      "identifier": "See model card",
+      "url": "https://huggingface.co/mlx-community/IndexTTS",
+      "commercialUseAllowed": false,
+      "requiresAcceptance": true
+    },
+    "engine": null,
+    "repository": null,
+    "portStatus": "not-ported",
+    "upstreamCapabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": true,
+      "streaming": false,
+      "longForm": true,
+      "languageSelection": true,
+      "requiresReferenceAudio": true
+    }
+  },
+  {
+    "id": "echo-base",
+    "displayName": "Echo",
+    "family": "Echo TTS",
+    "voices": [],
+    "defaultVoice": null,
+    "defaultLanguage": "en",
+    "languages": [
+      "en"
+    ],
+    "capabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": true,
+      "streaming": false,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": true
+    },
+    "stability": "unavailable",
+    "upstreamRepository": "mlx-community/echo-tts-base",
+    "upstreamLicense": {
+      "identifier": "CC-BY-NC-SA-4.0",
+      "url": "https://huggingface.co/mlx-community/echo-tts-base",
+      "commercialUseAllowed": false,
+      "requiresAcceptance": true
+    },
+    "engine": null,
+    "repository": null,
+    "portStatus": "not-ported",
+    "upstreamCapabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": true,
+      "streaming": false,
+      "longForm": true,
+      "languageSelection": false,
+      "requiresReferenceAudio": true
+    }
+  },
+  {
+    "id": "moss-nano-100m",
+    "displayName": "MOSS Nano",
+    "family": "MOSS-TTS Nano",
+    "voices": [],
+    "defaultVoice": null,
+    "defaultLanguage": null,
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "capabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": true,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": true,
+      "requiresReferenceAudio": true
+    },
+    "stability": "unavailable",
+    "upstreamRepository": "mlx-community/MOSS-TTS-Nano-100M",
+    "upstreamLicense": {
+      "identifier": "See model card",
+      "url": "https://huggingface.co/mlx-community/MOSS-TTS-Nano-100M",
+      "commercialUseAllowed": false,
+      "requiresAcceptance": true
+    },
+    "engine": null,
+    "repository": null,
+    "portStatus": "not-ported",
+    "upstreamCapabilities": {
+      "presetVoices": false,
+      "voiceDescription": false,
+      "voiceCloning": true,
+      "streaming": true,
+      "longForm": true,
+      "languageSelection": true,
+      "requiresReferenceAudio": true
+    }
+  }
+]

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=SayIt
+Comment=Read selected text with local speech models
+Exec=sayit ui
+Icon=audio-volume-high
+Terminal=false
+Categories=AudioVideo;Audio;Accessibility;
+
