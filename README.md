@@ -50,6 +50,18 @@ The installer links this checkout into `~/.local/bin`, installs a desktop launch
 
 Some Wayland apps do not publish a primary selection. In those apps, copy the text and use Shift+F10. There is no universal Linux equivalent of macOS Accessibility selection retrieval.
 
+## Omarchy bar player
+
+Install the native Quickshell bar popup with:
+
+```sh
+./scripts/install-bar.sh
+```
+
+The SayIt speaker button sits immediately before the audio widget. Click it for the current reading, timeline, pause/resume, stop, playback speed, selection/clipboard reading and four recent readings. Right-click toggles playback; an extra pause button appears in the bar while speech is active. The popup links to the GTK window for models, voices and full history.
+
+The installer backs up your bar configuration and installs `digitalbase.sayit` under the user plugin directory. No packaged Omarchy files are changed. Disable it with `omarchy plugin disable digitalbase.sayit`.
+
 ## CLI
 
 ```sh

@@ -16,7 +16,7 @@ Voxtype converts speech to text. SayIt converts text to speech. Whisper weights 
 2. **Local sample transcription.** Voice import normalizes audio using FFmpeg and calls Voxtype's file-transcription command. This reuses the installed local Whisper model. It explicitly selects local Whisper even if a different remote engine is configured. The command does not type or paste the result.
 3. **Desktop conventions.** SayIt follows the same user-service lifecycle and compositor-managed shortcut pattern. Its status command emits line-delimited JSON that a bar widget can consume.
 
-The existing indicator in `/usr/share/omarchy/shell/plugins/bar/indicators/Dictation.qml` consumes `omarchy-voxtype-status`, which wraps `voxtype status --follow --extended --format json`. A future combined voice widget can consume both status streams. No packaged Omarchy files were modified, and no duplicate custom Quickshell widget has been installed.
+The existing indicator in `/usr/share/omarchy/shell/plugins/bar/indicators/Dictation.qml` consumes `omarchy-voxtype-status`, which wraps `voxtype status --follow --extended --format json`. A future combined voice widget can consume both status streams. The dedicated `digitalbase.sayit` bar popup now consumes SayIt status and playback commands. It leaves the dictation indicator in place. No packaged Omarchy files were modified.
 
 ## What should stay separate
 

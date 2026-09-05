@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "digitalbase.sayit",
+  "name": "SayIt",
+  "version": "0.1.0",
+  "author": "Digitalbase",
+  "description": "Local speech player with playback controls and reading history",
+  "kinds": ["bar-widget"],
+  "entryPoints": {"barWidget": "Panel.qml"},
+  "barWidget": {
+    "displayName": "SayIt",
+    "description": "Read text aloud and control local speech",
+    "category": "Audio",
+    "allowMultiple": false,
+    "defaultSection": "right"
+  }
+}

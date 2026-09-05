@@ -37,7 +37,7 @@ The reference is SayIt commit `fbf019a81f3b40788d117314188a65a5cffa7cb6`. Its co
 | --- | --- |
 | Explicit selection and separate clipboard action | Implemented via wl-paste; primary-selection availability depends on the app |
 | Configurable global shortcuts | Native Hyprland Lua bindings |
-| Player and tray | GTK3 with optional Ayatana indicator; window smoke test passed |
+| Player and tray | Native Quickshell bar popup plus GTK3 management window and optional Ayatana indicator; live popup layout and window smoke checks passed |
 | Pause, resume, seek, skip, speed | Implemented with mpv; MPRIS pause/resume tested with real audio |
 | Follow spoken text | Chunk-level display; exact word timing not implemented |
 | Progressive audio | Text chunks enter the mpv playlist as synthesis completes; real progressive playback and cross-chunk seek tested; no model-level token streaming |
