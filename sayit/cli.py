@@ -41,6 +41,8 @@ def parser():
     cmd.add_argument("id")
     cmd.add_argument("repository")
     cmd.add_argument("--base", required=True, help="Catalog ID with the same architecture and mode")
+    cmd.add_argument("--revision", required=True, help="Full Hugging Face commit SHA")
+    cmd.add_argument("--artifacts", required=True, help="JSON file mapping artifact paths to SHA-256 hashes")
     cmd = commands.add_parser("setup")
     cmd.add_argument("engine", choices=["kokoro", "qwen", "chatterbox", "omnivoice"])
     cmd.add_argument("--cuda", action="store_true")
@@ -110,7 +112,11 @@ def main():
             if not base["engine"]:
                 raise ValueError("Choose a base with a Linux adapter")
             result = base | {"id": args["id"], "displayName": args["id"], "repository": args["repository"],
-                             "stability": "experimental", "portStatus": "community-unverified"}
+                             "stability": "experimental", "portStatus": "community-unverified",
+                             "revision": args["revision"],
+                             "artifacts": json.loads(Path(args["artifacts"]).read_text())}
+            from .artifacts import validate_model
+            validate_model(result)
             path = config_dir() / "models.json"
             atomic_json(path, read_json(path, []) + [result])
         elif command == "setup":

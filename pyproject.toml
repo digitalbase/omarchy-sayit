@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools==84.0.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "omarchy-sayit"
-version = "0.1.0"
+version = "0.1.1"
 description = "Local text-to-speech for Omarchy and Hyprland"
 requires-python = ">=3.11"
 license = "MIT"
@@ -13,7 +13,7 @@ license = "MIT"
 sayit = "sayit.cli:main"
 
 [tool.setuptools.package-data]
-sayit = ["*.json"]
+sayit = ["*.json", "locks/*"]
 
 [tool.setuptools.packages.find]
 include = ["sayit*"]

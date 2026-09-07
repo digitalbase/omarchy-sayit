@@ -1,0 +1,7 @@
+kokoro==0.9.4
+misaki[en]==0.9.4
+transformers==4.57.6
+soundfile==0.14.0
+espeakng-loader==0.2.4
+torch @ https://download.pytorch.org/whl/cpu/torch-2.6.0%2Bcpu-cp311-cp311-linux_x86_64.whl
+en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl

@@ -2,7 +2,7 @@
 
 A native Linux port in progress of [callebtc/sayit](https://github.com/callebtc/sayit). Select text, press F10, and hear a local speech model read it aloud. F9 remains Omarchy's Voxtype dictation shortcut.
 
-**This is an early working port, not full upstream parity.** Kokoro has been tested with real offline English and Spanish synthesis on Omarchy. Qwen3-TTS, Chatterbox and OmniVoice have Linux adapters that still need model-by-model runtime validation. The catalog retains all 22 upstream entries, including models that have not been ported. See [the parity tracker](docs/parity.md).
+**This is an early working port, not full upstream parity.** Kokoro has been tested with real offline English and Spanish synthesis on Omarchy. Only Kokoro on Linux x86-64 CPU is enabled. Qwen3-TTS, Chatterbox and OmniVoice are disabled until their dependencies, model artifacts and auxiliary downloads are locked and tested. Japanese and Chinese are also disabled for now. The catalog retains all 22 upstream entries, including models that have not been ported. See [the parity tracker](docs/parity.md).
 
 ![SayIt bar popup with shortcut hints and recent readings](preview.png)
 
@@ -19,7 +19,7 @@ A native Linux port in progress of [callebtc/sayit](https://github.com/callebtc/
 
 ## Install on Omarchy
 
-The desktop app uses system Python and GTK through PyGObject. Inference engines use separate Python 3.11 environments, since their PyTorch and Transformers dependencies conflict.
+The desktop app uses system Python and GTK through PyGObject. Kokoro uses a separate Python 3.11.16 environment. Setup verifies the pinned Python archive checksum and installs the committed dependency lock with artifact hashes; source builds are disabled.
 
 Install missing system dependencies with Omarchy's package command:
 
@@ -120,25 +120,37 @@ sayit settings selection_shortcut F10
 sayit settings clipboard_shortcut "CTRL + ALT + R"
 sayit settings clipboard_shortcut ""  # Unassign
 sayit models
-sayit setup qwen
-sayit download qwen3-17b-customvoice-8bit
-sayit speak "Hello" --model qwen3-17b-customvoice-8bit --voice vivian
+sayit setup kokoro
+sayit download kokoro-bf16
+sayit speak "Hello" --model kokoro-bf16 --voice af_heart
 ```
 
-Use `setup ENGINE --cuda` for NVIDIA PyTorch wheels. CPU is the default installation. AMD GPU acceleration has not been validated. Existing model IDs retain upstream names for traceability: `8bit` or `bf16` in an ID describes the upstream entry, **not the Linux runtime precision**. Linux uses original PyTorch weights, with float32 on CPU and model-dependent GPU precision.
+Setup currently supports Linux x86-64 CPU only; `--cuda` fails without installing anything. Existing model IDs retain upstream names for traceability. The `bf16` suffix describes the upstream entry; this CPU runtime uses float32.
 
-Compatible community repositories can reuse an adapter:
+Compatible Kokoro community repositories require explicit verification metadata:
 
 ```sh
-sayit add-model my-model owner/repository --base qwen3-17b-customvoice-8bit
+sayit add-model my-model owner/repository --base kokoro-bf16 --revision FULL_40_CHARACTER_COMMIT_SHA --artifacts /path/to/artifact-hashes.json
 sayit download my-model
 ```
 
-The repository must have the same architecture, file layout and synthesis mode as its base. This does not support arbitrary Hugging Face models or MLX conversions. Community repositories inherit the base's voice/language metadata; review and update `~/.config/sayit/models.json` if needed. Review the actual repository's model license before downloading.
+The artifacts file is a JSON object mapping `config.json`, `kokoro-v1_0.pth` and every declared `voices/NAME.pt` to its SHA-256 digest. The full commit SHA and hashes must be independently reviewed before registration. SayIt never derives trusted hashes from a download at runtime. Missing pins, unsupported engines, unsafe paths and undeclared voices are rejected, including for manually edited custom entries.
+
+Custom repositories must have the same architecture and layout as Kokoro. They inherit its voice/language metadata; adjust the declared presets in `~/.config/sayit/models.json` if needed. Hashes bind content but do not establish that a model is trustworthy. Review its contents and license first.
+
+## Runtime source verification
+
+Every enabled model declares a full repository commit and SHA-256 hashes in `sayit/models.json`. Downloads fetch only those files from that commit, verify each temporary file before publishing it, and never initialize a model online. Model loading verifies all declared artifacts again, even if the ready marker exists. Legacy ready markers do not bypass verification. Inference workers reject network connections and dependency-install subprocesses; the system `ldconfig -p` lookup used by ctypes is the sole subprocess exception. This guard prevents accidental implicit downloads; it is not a sandbox for hostile Python or native code.
+
+`sayit/locks/` contains the exact dependency versions and distribution hashes, bootstrap uv lock, and Python archive URL/checksum. Setup consumes these locks using hash-required, wheel-only sync, without dependency resolution or source builds. The English spaCy model wheel is locked too. Engine directories are named by lock digest so old unverified environments are not reused.
+
+For an existing installation, run `./scripts/bootstrap.sh`, `sayit setup kokoro` and `sayit download kokoro-bf16`, then restart `sayit.service`. Valid cached model files are reused after hashing. Old engine directories are retained and can be removed manually once migration succeeds.
+
+See [the lock review notes](docs/runtime-locks.md) for artifact provenance, checks and the supported build procedure.
 
 ## Voice studio and Voxtype
 
-Record a sample in Voice studio or import an existing audio file. Use a clean 6–10 second recording and the exact words spoken. Different models impose different duration limits. Use a voice you have permission to clone.
+Clone synthesis and voice design are currently disabled. You can still record and manage samples for future use. Record a sample in Voice studio or import an existing audio file. Use a clean 6–10 second recording and the exact words spoken. Different models impose different duration limits. Use a voice you have permission to clone.
 
 ```sh
 sayit voices add "My voice" reference.wav --transcript "The words I said."

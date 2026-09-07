@@ -214,6 +214,8 @@ class Window(Gtk.Window):
         box.pack_start(Gtk.Label(label="Linux weights for the same model families. MLX quantizations are not interchangeable.\nInstall an engine once, then download its model. Downloads may be several GB.", wrap=True, xalign=0), False, False, 0)
         self.model_list = Gtk.ComboBoxText()
         for model in models():
+            if not model["engine"]:
+                continue
             self.model_list.append(model["id"], f"{model['id']} · {model['portStatus']}")
         self.model_list.set_active(0)
         box.pack_start(self.model_list, False, False, 0)
@@ -233,7 +235,7 @@ class Window(Gtk.Window):
         self.button(box, "Download model", download_model)
         self.button(box, "Open model card", lambda: Gtk.show_uri_on_window(self,
                     "https://huggingface.co/" + (selected()["repository"] or selected()["upstreamRepository"]), 0))
-        box.pack_start(Gtk.Label(label="Entries marked not-ported are inventory only. See docs/parity.md for the remaining work.", wrap=True, xalign=0), False, False, 0)
+        box.pack_start(Gtk.Label(label="Only locked engines are available. Other models remain in the CLI inventory; see docs/parity.md.", wrap=True, xalign=0), False, False, 0)
 
     def voices_page(self, box):
         box.pack_start(Gtk.Label(label="Record or import a clean sample of 6 to 10 seconds.\nUse a voice you have permission to clone. Samples stay on this computer.", wrap=True, xalign=0), False, False, 0)

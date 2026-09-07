@@ -1,12 +1,17 @@
 import json
 import re
 from pathlib import Path
+from .artifacts import fingerprint, validate_model
 from .paths import config_dir, data_dir, read_json
 
 
 def models():
     builtins = json.loads(Path(__file__).with_name("models.json").read_text())
     custom = read_json(config_dir() / "models.json", [])
+    for model in custom:
+        validate_model(model)
+        if any(m["id"] == model["id"] for m in builtins):
+            raise ValueError("Custom model IDs must not shadow built-in models")
     return builtins + custom
 
 
@@ -24,5 +29,8 @@ def model_path(model):
 
 
 def installed(model):
-    return (model_path(model) / ".sayit-ready").exists()
+    try:
+        return (model_path(model) / ".sayit-ready").read_text().strip() == fingerprint(model)
+    except (OSError, ValueError):
+        return False
 

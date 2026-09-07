@@ -4,3 +4,5 @@ recursive-include integration *
 recursive-include scripts *.sh
 recursive-include bin *
 recursive-include data *.json
+
+recursive-include sayit/locks *

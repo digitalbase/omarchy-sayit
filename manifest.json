@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "digitalbase.sayit",
   "name": "SayIt",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Digitalbase",
   "description": "Omarchy SayIt makes your desktop read aloud with a keyboard shortcut.",
   "kinds": [

@@ -11,9 +11,7 @@
       "bf_emma",
       "bm_george",
       "ef_dora",
-      "ff_siwis",
-      "jf_alpha",
-      "zm_yunxi"
+      "ff_siwis"
     ],
     "defaultVoice": "af_heart",
     "defaultLanguage": "en-US",
@@ -24,9 +22,7 @@
       "fr",
       "it",
       "pt",
-      "ja",
-      "hi",
-      "cmn"
+      "hi"
     ],
     "capabilities": {
       "presetVoices": true,
@@ -50,7 +46,7 @@
     "engine": "kokoro",
     "repository": "hexgrad/Kokoro-82M",
     "mode": "preset",
-    "portStatus": "adapter",
+    "portStatus": "verified",
     "upstreamCapabilities": {
       "presetVoices": true,
       "voiceDescription": false,
@@ -59,6 +55,21 @@
       "longForm": true,
       "languageSelection": true,
       "requiresReferenceAudio": false
+    },
+    "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
+    "artifacts": {
+      "config.json": "5abb01e2403b072bf03d04fde160443e209d7a0dad49a423be15196b9b43c17f",
+      "kokoro-v1_0.pth": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
+      "voices/af_heart.pt": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+      "voices/af_bella.pt": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+      "voices/af_nicole.pt": "c5561808bcf5250fe8c5f5de32caf2d94f27e57e95befdb098c5c85991d4c5da",
+      "voices/am_adam.pt": "ced7e284aba12472891be1da3ab34db84cc05cc02b5889535796dbf2d8b0cb34",
+      "voices/bf_emma.pt": "d0a423deabf4a52b4f49318c51742c54e21bb89bbbe9a12141e7758ddb5da701",
+      "voices/bm_george.pt": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
+      "voices/ef_dora.pt": "d9d69b0f8a2b87a345f269d89639f89dfbd1a6c9da0c498ae36dd34afcf35530",
+      "voices/ff_siwis.pt": "8073bf2d2c4b9543a90f2f0fd2144de4ed157e2d4b79ddeb0d5123066171fbc9",
+      "voices/jf_alpha.pt": "1bf4c9dc69e45ee46183b071f4db766349aac5592acbcfeaf051018048a5d787",
+      "voices/zm_yunxi.pt": "dbe6e1ce7c3dbaf2f5667432947b638b1c6831ccbe154c4610dbcc44f431e27b"
     }
   },
   {
@@ -297,10 +308,10 @@
       "commercialUseAllowed": true,
       "requiresAcceptance": false
     },
-    "engine": "qwen",
+    "engine": null,
     "repository": "Qwen/Qwen3-TTS-12Hz-0.6B-Base",
     "mode": "clone",
-    "portStatus": "adapter",
+    "portStatus": "disabled-unlocked",
     "upstreamCapabilities": {
       "presetVoices": false,
       "voiceDescription": false,
@@ -318,7 +329,8 @@
         "maximumDuration": 15,
         "transcriptRequired": true
       }
-    }
+    },
+    "experimentalEngine": "qwen"
   },
   {
     "id": "qwen3-17b-voicedesign-8bit",
@@ -365,10 +377,10 @@
       "commercialUseAllowed": true,
       "requiresAcceptance": false
     },
-    "engine": "qwen",
+    "engine": null,
     "repository": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
     "mode": "design",
-    "portStatus": "adapter",
+    "portStatus": "disabled-unlocked",
     "upstreamCapabilities": {
       "presetVoices": true,
       "voiceDescription": true,
@@ -379,7 +391,8 @@
       "requiresReferenceAudio": false,
       "voiceDiscovery": false,
       "randomVoiceSampling": false
-    }
+    },
+    "experimentalEngine": "qwen"
   },
   {
     "id": "qwen3-17b-customvoice-8bit",
@@ -436,10 +449,10 @@
       "commercialUseAllowed": true,
       "requiresAcceptance": false
     },
-    "engine": "qwen",
+    "engine": null,
     "repository": "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
     "mode": "preset",
-    "portStatus": "adapter",
+    "portStatus": "disabled-unlocked",
     "upstreamCapabilities": {
       "presetVoices": true,
       "voiceDescription": false,
@@ -457,7 +470,8 @@
         "maximumDuration": 15,
         "transcriptRequired": true
       }
-    }
+    },
+    "experimentalEngine": "qwen"
   },
   {
     "id": "chatterbox-turbo-fp16",
@@ -495,10 +509,10 @@
       "commercialUseAllowed": true,
       "requiresAcceptance": false
     },
-    "engine": "chatterbox",
+    "engine": null,
     "repository": "ResembleAI/chatterbox-turbo",
     "mode": "turbo",
-    "portStatus": "adapter",
+    "portStatus": "disabled-unlocked",
     "upstreamCapabilities": {
       "presetVoices": false,
       "voiceDescription": false,
@@ -516,7 +530,8 @@
         "maximumDuration": 15,
         "transcriptRequired": false
       }
-    }
+    },
+    "experimentalEngine": "chatterbox"
   },
   {
     "id": "chatterbox-multilingual-v3-fp16",
@@ -576,10 +591,10 @@
       "commercialUseAllowed": true,
       "requiresAcceptance": false
     },
-    "engine": "chatterbox",
+    "engine": null,
     "repository": "ResembleAI/chatterbox",
     "mode": "multilingual",
-    "portStatus": "adapter",
+    "portStatus": "disabled-unlocked",
     "upstreamCapabilities": {
       "presetVoices": false,
       "voiceDescription": false,
@@ -597,7 +612,8 @@
         "maximumDuration": 15,
         "transcriptRequired": false
       }
-    }
+    },
+    "experimentalEngine": "chatterbox"
   },
   {
     "id": "chatterbox-fp16",
@@ -635,10 +651,10 @@
       "commercialUseAllowed": false,
       "requiresAcceptance": true
     },
-    "engine": "chatterbox",
+    "engine": null,
     "repository": "ResembleAI/chatterbox",
     "mode": "original",
-    "portStatus": "adapter",
+    "portStatus": "disabled-unlocked",
     "upstreamCapabilities": {
       "presetVoices": false,
       "voiceDescription": false,
@@ -656,7 +672,8 @@
         "maximumDuration": 15,
         "transcriptRequired": false
       }
-    }
+    },
+    "experimentalEngine": "chatterbox"
   },
   {
     "id": "omnivoice",
@@ -694,10 +711,10 @@
       "commercialUseAllowed": true,
       "requiresAcceptance": false
     },
-    "engine": "omnivoice",
+    "engine": null,
     "repository": "k2-fsa/OmniVoice",
     "mode": "auto",
-    "portStatus": "adapter",
+    "portStatus": "disabled-unlocked",
     "upstreamCapabilities": {
       "presetVoices": false,
       "voiceDescription": true,
@@ -715,7 +732,8 @@
         "maximumDuration": 10,
         "transcriptRequired": true
       }
-    }
+    },
+    "experimentalEngine": "omnivoice"
   },
   {
     "id": "fish-s2-pro-8bit",

@@ -162,8 +162,8 @@ class ServiceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "not been ported"):
             self.submit(model="echo-base")
 
-    def test_clone_requirements(self):
-        with self.assertRaisesRegex(ValueError, "sample"):
+    def test_unlocked_clone_engine_rejected(self):
+        with self.assertRaisesRegex(ValueError, "not been ported"):
             self.submit(model="qwen3-06b-base-8bit")
 
     def test_chunking_bounds_and_content(self):
