@@ -22,6 +22,25 @@ rejected. Custom models must supply the same commit/hash fields, validated both
 at registration and before download/load. These fields identify content, not
 authorship or trustworthiness.
 
+### Download size limits
+
+The downloader enforces fixed maximum sizes for both built-in and custom models:
+
+| Artifact | Maximum bytes | Pinned upstream bytes |
+| --- | ---: | ---: |
+| `config.json` | 65,536 | 2,351 |
+| `kokoro-v1_0.pth` | 367,001,600 | 327,212,226 |
+| Each `voices/*.pt` | 1,048,576 | 523,420 to 523,430 |
+
+The upstream sizes were checked against Hugging Face tree metadata at the pinned
+commit above on 2026-09-09. The limits allow headroom while bounding each download;
+model metadata cannot raise them. Larger artifacts require a reviewed code change.
+An oversized `Content-Length` is rejected before reading the body. Streaming also
+counts bytes regardless of the header, reading at most one byte beyond the limit
+to detect overflow and rejecting that chunk before writing it. Any failure removes
+the temporary file, preserves the previous target, and leaves no ready marker.
+The SHA-256 check remains required before publishing an artifact.
+
 ## Dependency and bootstrap provenance
 
 - `kokoro.in` records the selected top-level versions and direct CPU PyTorch and

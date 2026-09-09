@@ -7,6 +7,19 @@ import tempfile
 import urllib.request
 
 SUPPORTED_ENGINES = frozenset({"kokoro"})
+# Reviewed against the pinned Kokoro files; see docs/runtime-locks.md.
+# Custom models use the same limits and cannot override them.
+CONFIG_MAX_BYTES = 64 * 1024
+WEIGHTS_MAX_BYTES = 350 * 1024 * 1024
+VOICE_MAX_BYTES = 1024 * 1024
+
+
+def artifact_max_bytes(name):
+    if name == "config.json":
+        return CONFIG_MAX_BYTES
+    if name == "kokoro-v1_0.pth":
+        return WEIGHTS_MAX_BYTES
+    return VOICE_MAX_BYTES
 
 
 def validate_model(spec):
@@ -80,12 +93,21 @@ def download_model(spec, folder):
         target.parent.mkdir(parents=True, exist_ok=True)
         url = f"https://huggingface.co/{spec['repository']}/resolve/{spec['revision']}/{name}"
         temporary = None
+        limit = artifact_max_bytes(name)
         try:
             with urllib.request.urlopen(url, timeout=60) as source, tempfile.NamedTemporaryFile(
                     dir=target.parent, delete=False) as output:
                 temporary = Path(output.name)
+                length = source.headers.get("Content-Length")
+                if length is not None:
+                    if not re.fullmatch(r"[0-9]+", length) or int(length) > limit:
+                        raise ValueError(f"Invalid or oversized Content-Length for {name}; limit is {limit} bytes")
                 actual = hashlib.sha256()
-                while chunk := source.read(1024 * 1024):
+                received = 0
+                while chunk := source.read(min(1024 * 1024, limit - received + 1)):
+                    received += len(chunk)
+                    if received > limit:
+                        raise ValueError(f"Download exceeds {limit} byte limit for {name}")
                     output.write(chunk)
                     actual.update(chunk)
             if actual.hexdigest() != digest:
